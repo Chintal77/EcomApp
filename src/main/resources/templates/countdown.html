@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .countdown-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .countdown div {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 70px;
+        }
+        .countdown .countdown-value {
+            font-size: 2rem;
+            display: block;
+        }
+        .countdown .countdown-label {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div th:fragment="countdownFragment">
+        <div class="container">
+            <div class="row" p-25>
+                <p class="text-center fs-4"><strong>Sale to Start Soon</strong></p>
+            </div>
+        </div>
+        <div class="countdown-container">
+            <div class="countdown">
+                <div>
+                    <span id="days" class="countdown-value">00</span>
+                    <div class="countdown-label">days</div>
+                </div>
+                <div>
+                    <span id="hours" class="countdown-value">00</span>
+                    <div class="countdown-label">hours</div>
+                </div>
+                <div>
+                    <span id="minutes" class="countdown-value">00</span>
+                    <div class="countdown-label">minutes</div>
+                </div>
+                <div>
+                    <span id="seconds" class="countdown-value">00</span>
+                    <div class="countdown-label">seconds</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Set the target date and time
+            var targetDateTime = new Date("2024-07-31T23:59:59").getTime();
+            
+            // Update the countdown every 1 second
+            var countdownFunction = setInterval(function() {
+                // Get current date and time
+                var now = new Date().getTime();
+                
+                // Find the difference between now and the target date and time
+                var distance = targetDateTime - now;
+                
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Display the result in the elements with ids
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+                
+                // If the countdown is finished, write some text
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("days").innerHTML = "00";
+                    document.getElementById("hours").innerHTML = "00";
+                    document.getElementById("minutes").innerHTML = "00";
+                    document.getElementById("seconds").innerHTML = "00";
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

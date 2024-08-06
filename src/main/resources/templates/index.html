@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+.carousel-inner img {
+	height: 350px;
+	object-fit: cover;
+}
+
+.carousel {
+	border-bottom: 2px solid #000;
+	/* Solid border at the bottom of the carousel */
+}
+
+.category-card, .product-card {
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s;
+}
+
+.category-card:hover, .product-card:hover {
+	transform: scale(1.05);
+}
+
+.category-card img, .product-card img {
+	border-radius: 10px;
+	width: 100%;
+	height: auto;
+	max-height: 140px;
+	object-fit: cover;
+}
+
+.spacing-top {
+	margin-top: 30px; /* Adjust the value as needed */
+}
+
+.spacing-bottom {
+	margin-bottom: 30px; /* Adjust the value as needed */
+}
+
+.border-solid {
+	border-style: solid;
+}
+
+.sale-notification {
+            border-bottom: 2px solid #ddd; /* Line at the bottom */
+            padding-bottom: 20px; /* Space for the line */
+        }
+</style>
+</head>
+<body>
+	<section>
+		<!-- Start Slider  -->
+		<div id="carouselExample" class="carousel slide">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="img/ecom1.png" class="d-block w-100" alt="..."
+						height="350px">
+				</div>
+				<div class="carousel-item">
+					<img src="img/ecom3.jpg" class="d-block w-100" alt="..."
+						height="350px">
+				</div>
+				<div class="carousel-item">
+					<img src="img/ecom2.jpg" class="d-block w-100" alt="..."
+						height="350px">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselExample" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselExample" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<!-- End Slider  -->
+
+		<!-- Sale HTML COde -->
+		<!-- <div class="container mt-5">
+        <div class="sale-notification text-center">
+            <h3 class="mb-3">🔥 Sale to Start Soon! 🔥</h3>
+            <p class="lead">Exciting discounts and offers will be available shortly. Stay tuned!</p>
+            <div id="timer" class="countdown mb-3">Loading...</div>
+            <a id="notifybutton" href="#" class="btn btn-danger btn-lg">Notify Me</a>
+        </div>
+    </div>
+    Bootstrap JS and dependencies
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+		<script>
+        // Set the sale start time (example: 5 minutes from now)
+        const saleStartTime = new Date().getTime() + 1 * 10 * 1000;
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = saleStartTime - now;
+
+            if (distance <= 0) {
+                // Sale has started
+              document.getElementById('timer').innerHTML = ""; 
+                document.getElementById('notifybutton').innerText = "Sale Started";
+                document.getElementById('notifybutton').classList.remove('btn-danger');
+                document.getElementById('notifybutton').classList.add('btn-success');
+                notifybutton.href = "/product";
+                return;
+            }
+
+            // Time calculations for days, hours, minutes and seconds
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="timer"
+            document.getElementById('timer').innerHTML = `${minutes}m ${seconds}s`;
+
+            // Update the timer every second
+            setTimeout(updateTimer, 1000);
+        }
+
+        // Initialize the timer
+        updateTimer();
+    </script> -->
+
+		<!-- Start Category Module -->
+		<div class="container spacing-top">
+			<div class="row">
+				<p class="text-center fs-4">Category</p>
+				<div class="col-md-2" th:each="cat,c:${categorys}">
+					<div
+						class="card category-card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img th:src="@{'/img/category_img/' + ${cat.imageName}}"
+								width="65%" height="140px"> <a href="/product"
+								style="text-decoration: none; color: black;">
+								<p>[[${cat.name}]]</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Category Module -->
+
+	</section>
+
+
+</body>
+</html>
